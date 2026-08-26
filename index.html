@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>次のnote、どれが読みたい？｜のりこおばちゃんnote テーマ投票</title>
+<meta name="description" content="のりこおばちゃんの次のnote記事のテーマを、読者のみなさんに投票で決めてもらうページです。">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* palette contract canonical values (nami-site-palette/v1) — mirrored in style.css */
+:root{
+  --palette-surface: #FBF7F1;
+  --palette-ink: #3A2A22;
+  --palette-signal: #C14A22;
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+</style>
+</head>
+<body data-product-geometry="service-or-idea" data-qa-palette-contract="nami-site-palette/v1" data-palette-core-chromatic="1">
+
+<a class="skip-link" href="#candidate-list">投票の候補一覧へ移動</a>
+
+<header class="hero" data-qa-product-hero data-qa-hero-container="editorial-stage" data-qa-hero-mask="none" data-qa-hero-edge-strategy="image-outside">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">note テーマ投票</p>
+
+    <h1 data-headline-layout
+        data-headline-market="true"
+        data-headline-copy="次のnote、どの話から読みたい？"
+        data-headline-lines-desktop="2"
+        data-headline-lines-mobile="2"
+        data-headline-emphasis="none"
+        data-headline-optical-spacing="kerning-palt-manual-gap"
+        data-headline-line-gap-em="0.05"
+        data-headline-tracking-em="-0.01"
+        data-headline-research-source="note.com-hero-headline-placement,surveymonkey.com-hero-headline-placement">
+      <span data-headline-line>次のnote、</span>
+      <span data-headline-line>どの話から読みたい？</span>
+    </h1>
+
+    <p class="hero-lead">
+      候補は4つ。気になるテーマに、ぽちっと一票お願いします。<br class="only-desktop">
+      票がいちばん多かったテーマから、じゅんばんに記事にしていくよ。
+    </p>
+
+    <ol class="hero-quicklist" id="heroQuicklist" aria-label="テーマ一覧（票が多い順）">
+      <!-- script.js が票数順に描画します -->
+    </ol>
+  </div>
+</header>
+
+<main>
+  <div id="syncStatus" class="sync-status" role="status" aria-live="polite" hidden>
+    <p class="sync-status-text" id="syncStatusText"></p>
+    <button type="button" class="btn btn-ghost sync-status-reload" id="syncReloadBtn" hidden>ページを再読み込み</button>
+  </div>
+
+  <section id="candidate-list" class="candidates" aria-labelledby="candidates-title" data-mobile-layout="stacked-snap">
+    <h2 id="candidates-title" class="section-title">候補（票が多い順に並びます）</h2>
+
+    <div class="candidate-grid" id="candidateGrid" data-qa-hero-candidate-count="4">
+      <!-- カードは script.js が動的に描画します -->
+    </div>
+  </section>
+
+  <section class="vote-panel" aria-labelledby="vote-panel-title" hidden id="votePanel">
+    <div class="vote-panel-inner">
+      <h2 id="vote-panel-title" class="section-title">投票を送る</h2>
+      <p class="vote-panel-target">選んだテーマ：<strong id="votePanelTarget"></strong></p>
+      <form id="voteForm" novalidate>
+        <div class="vote-panel-actions">
+          <button type="submit" class="btn btn-primary" id="submitVoteBtn">この内容で投票する</button>
+          <button type="button" class="btn btn-ghost" id="cancelVoteBtn">やめる</button>
+        </div>
+      </form>
+      <p class="vote-panel-status" id="voteStatus" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section class="how-it-works" aria-labelledby="how-it-works-title">
+    <h2 id="how-it-works-title" class="section-title">投票のしかた</h2>
+    <div class="hero-visual" role="img" aria-label="読んで選ぶ、一票を入れる、票数が積み上がる、次のnoteになる、という4つの流れを示す図" data-qa-hero-image-role="asset:flow-diagram;role=diagram">
+      <svg viewBox="0 0 640 160" xmlns="http://www.w3.org/2000/svg" data-qa-svg-purpose="diagram" aria-hidden="true">
+        <defs>
+          <linearGradient id="flowLine" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="var(--palette-signal)" stop-opacity="0.15"/>
+            <stop offset="1" stop-color="var(--palette-signal)" stop-opacity="0.55"/>
+          </linearGradient>
+        </defs>
+        <line x1="60" y1="80" x2="580" y2="80" stroke="url(#flowLine)" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/>
+        <g>
+          <circle cx="60" cy="80" r="34" fill="var(--palette-surface-alt)" stroke="var(--palette-signal)" stroke-width="2"/>
+          <path d="M48 80 h24 M60 68 v24" stroke="var(--palette-ink)" stroke-width="2.4" stroke-linecap="round"/>
+          <text x="60" y="128" text-anchor="middle" class="flow-label">読んで選ぶ</text>
+        </g>
+        <g>
+          <circle cx="230" cy="80" r="34" fill="var(--palette-surface-alt)" stroke="var(--palette-signal)" stroke-width="2"/>
+          <path d="M216 82 l10 10 l18 -24" fill="none" stroke="var(--palette-ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="230" y="128" text-anchor="middle" class="flow-label">一票を入れる</text>
+        </g>
+        <g>
+          <circle cx="400" cy="80" r="34" fill="var(--palette-surface-alt)" stroke="var(--palette-signal)" stroke-width="2"/>
+          <path d="M386 90 l10 -22 l10 14 l8 -8" fill="none" stroke="var(--palette-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="400" y="128" text-anchor="middle" class="flow-label">票数が積み上がる</text>
+        </g>
+        <g>
+          <circle cx="580" cy="80" r="34" fill="var(--palette-surface-alt)" stroke="var(--palette-signal)" stroke-width="2"/>
+          <path d="M566 84 h20 M578 76 l10 8 l-10 8" fill="none" stroke="var(--palette-ink)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="580" y="128" text-anchor="middle" class="flow-label">次のnoteになる</text>
+        </g>
+      </svg>
+    </div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>読みたいテーマのカードにある「これに投票する」ボタンを押す</li>
+      <li><span class="step-num">2</span>一人1票まで。あとから票を変えることもできるよ</li>
+    </ul>
+    <p class="how-it-works-note">※ この投票は匿名で参加できます。個人情報の入力は不要です。</p>
+  </section>
+
+  <section class="notice" aria-labelledby="notice-title">
+    <h2 id="notice-title" class="section-title">お知らせ</h2>
+    <ul class="notice-list">
+      <li>この投票の結果は、Googleスプレッドシートに保存され、参加者みんなの端末で共有されます。氏名・メールなどの個人情報の入力・保存は一切ありません。</li>
+      <li>このページでは感想の投稿は受け付けていません。note本編やアンケートでいただいたご感想・エピソードは、掲載の許可をいただいたものだけを、個人が特定されない形で記事に使わせていただきます。</li>
+      <li>投票内容は次のnote記事のテーマ選びの参考にします。必ずしも一番票が多かったものからとは限りません。</li>
+      <li>匿名投票のため、同じ方が複数回投票する可能性はゼロではありません。票数は参考値としてご覧ください。</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>AmeCan. のりこおばちゃん note 読者投票ページ</p>
+</footer>
+
+<template id="heroQuickItemTemplate">
+  <li class="hero-quickitem">
+    <span class="hero-quickitem-rank" data-role="rank"></span>
+    <span class="hero-quickitem-title" data-role="title"></span>
+    <span class="hero-quickitem-votes" data-role="votes"></span>
+  </li>
+</template>
+
+<template id="candidateCardTemplate">
+  <article class="candidate-card" data-qa-hero-candidate>
+    <div class="candidate-icon" aria-hidden="true"></div>
+    <div class="candidate-body">
+      <div class="candidate-rank-row">
+        <span class="candidate-rank" data-role="rank"></span>
+        <span class="candidate-votes" data-role="votes"></span>
+      </div>
+      <h3 class="candidate-title" data-role="title"></h3>
+      <p class="candidate-desc" data-role="desc"></p>
+      <button type="button" class="btn btn-primary candidate-vote-btn" data-role="vote-btn">これに投票する</button>
+    </div>
+  </article>
+</template>
+
+<script src="script.js"></script>
+</body>
+</html>
