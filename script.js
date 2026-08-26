@@ -9,7 +9,7 @@
    * プレースホルダーのままの間は「準備中」表示にし、投票ボタンを無効化する。
    * 設定手順は setup-shared-vote.md を参照。
    */
-  var SHEET_API_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  var SHEET_API_URL = "https://script.google.com/macros/s/AKfycbyk--FpNTYZl_l3fpiL4HS22xBkkuHAub27pPkteAfrJYaZfSnLSrJW47JCdYb1A2w9/exec";
 
   /**
    * 投票候補データ。
